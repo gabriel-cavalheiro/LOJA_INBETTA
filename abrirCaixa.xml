@@ -1,0 +1,41 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<core:View xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="controller.AbrirCaixa">
+<Page showHeader="false" class="sapUiResponsiveContentPadding">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="8" columnsL="3" columnsM="2">
+<f:content>
+<core:Title text="Abrir Caixa"/>
+<Label text="Usuário"/>
+<Text text="{Profile>/nome}"/>
+<Label text="Data"/>
+<Text id="textDataAbertura"/>
+<Label text="Hora"/>
+<Text id="textHoraAbertura"/>
+<Label text="Caixa"/>
+<Text text="{Profile>/id}" id="profileID"/>
+<Label required="true" text="Saldo inicial do Caixa"/>
+<Input enabled="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaFechado' }" id="abrirCaixaSaldoInicial" type="Number"/>
+<!--  <Input enabled="{= ${Caixa>/aberto} !== true }"  id="abrirCaixaSaldoInicial" type="Number"/>  -->
+<Label required="true" text="Loja ( centro )"/>
+<ComboBox id="selectLojaVendedor" items="{InputHelpVendedoresCaixa>/}" selectedKey="{SelectedPDVModel>/selectedPlant}" change=".onLojaChange" enabled="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaFechado' }">
+<!--  <ComboBox id="selectLojaVendedor" items="{InputHelpVendedoresCaixa>/}" selectedKey="{SelectedPDVModel>/selectedPlant}" change=".onLojaChange" enabled="{= ${Caixa>/aberto} !== true }">  -->
+<core:Item key="{InputHelpVendedoresCaixa>centro}" text="{InputHelpVendedoresCaixa>centro} - {InputHelpVendedoresCaixa>descricaoCentro}"/>
+</ComboBox>
+<Label required="true" text="Terminal PDV"/>
+<ComboBox id="selectPDV" items="{InputHelpPDV>/}" selectedKey="{SelectedPDVModel>/selectedPDV}" change=".onCaixaChange" enabled="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaFechado' }">
+<!--  <ComboBox id="selectPDV" items="{InputHelpPDV>/}" selectedKey="{SelectedPDVModel>/selectedPDV}" change=".onCaixaChange" enabled="{= ${Caixa>/aberto} !== true }">  -->
+<core:Item key="{InputHelpPDV>pdv}" text="{InputHelpPDV>pdv}"/>
+</ComboBox>
+</f:content>
+</f:SimpleForm>
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+<Button enabled="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaFechado' }" tap="onAbrirCaixa" text="Abrir Caixa" type="Accept"/>
+<!--  <Button enabled="{= ${Caixa>/aberto} !== true }" tap="onAbrirCaixa" text="Abrir Caixa" type="Accept"/>  -->
+</Toolbar>
+</footer>
+</Page>
+</core:View>
