@@ -1,0 +1,44 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns="sap.m" xmlns:t="sap.ui.table">
+<Dialog contentWidth="1024px" contentHeight="760px" stretch="false" title="Composição de Preço" type="Standard">
+<content>
+<Table items="{TabelaCondicoes>/}" visibleRowCount="7">
+<columns>
+<Column width="3em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Tipo"/>
+</Column>
+<Column width="14em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Descrição"/>
+</Column>
+<Column width="3em" hAlign="Right" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Percentual"/>
+</Column>
+<Column width="3em" hAlign="Right" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Valor Unitário"/>
+</Column>
+<Column width="3em" hAlign="Right" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Valor"/>
+</Column>
+</columns>
+<items>
+<ColumnListItem>
+<cells>
+<Text text="{TabelaCondicoes>tipo}"/>
+<Text text="{TabelaCondicoes>descricao}"/>
+<Text text="{TabelaCondicoes>percentual}"/>
+<Text text="{ parts: [{path: 'TabelaCondicoes>valorUnitario'}, {path: 'TabelaCondicoes>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+<Text text="{ parts: [{path: 'TabelaCondicoes>valor'}, {path: 'TabelaCondicoes>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+<!-- <Text text="{TabelaCondicoes>valor}" /> -->
+</cells>
+</ColumnListItem>
+</items>
+</Table>
+</content>
+<endButton>
+<Button text="Voltar" type="Transparent"/>
+</endButton>
+<buttons>
+<Button press="closeComposicaoPrecoItemDialog" text="Voltar" type="Transparent"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
