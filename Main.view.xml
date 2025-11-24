@@ -1,0 +1,15 @@
+<core:View xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="controller.Main">
+<Page showHeader="false" class="sapUiResponsiveContentPadding">
+<content>
+<TileContainer id="container" allowAdd="false" editable="false" tiles="{Profile>/tTiles}">
+<StandardTile icon="{Profile>icon}" type="{Profile>type}" number="{Profile>number}" numberUnit="{Profile>numberunit}" title="{Profile>title}" info="{Profile>info}" infoState="{Profile>infostate}" press="onNavigationPress"/>
+</TileContainer>
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+</Toolbar>
+</footer>
+</Page>
+</core:View>
