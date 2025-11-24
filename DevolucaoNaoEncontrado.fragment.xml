@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<Dialog title="Produto Não encontrado">
+<beginButton>
+<Button text="OK" press="onCloseDialog"/>
+</beginButton>
+</Dialog>
+</core:FragmentDefinition>
