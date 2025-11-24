@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns="sap.m">
+<Dialog contentWidth="640px" contentHeight="240px" title="Nota substituitiva - Buscar venda" type="Standard">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="5">
+<f:content>
+<Label required="true" text="Nota fiscal"/>
+<MaskInput id="inputNotaSubstitutivaNumeroNf" mask="999999999" placeholderSymbol="_" placeholder="Digite o número da nota fiscal" change="onChangeDevolucaoNumeroNf"/>
+<Label required="true" text="Loja"/>
+<Select id="inputinputNotaSubstitutivaLocalExpedicao" items="{InputHelpLocaisExpedicao>/}">
+<core:Item key="{InputHelpLocaisExpedicao>id}" text="{InputHelpLocaisExpedicao>id} - {InputHelpLocaisExpedicao>descricao} - {InputHelpLocaisExpedicao>cnpj}"/>
+</Select>
+</f:content>
+</f:SimpleForm>
+</content>
+<buttons>
+<Button text="Voltar" type="Transparent" press="onCancelaConsultaVendasPorNf"/>
+<Button text="Buscar" type="Accept" press="onConsultaVendasPorNf"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
