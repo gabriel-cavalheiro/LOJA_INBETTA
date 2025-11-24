@@ -1,0 +1,175 @@
+<core:FragmentDefinition xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns="sap.m">
+<Dialog stretch="true" title="Finalizar venda - Formas de pagamento" type="Standard">
+<content>
+<ScrollContainer focusable="true" horizontal="true" class="sapUiContentPadding">
+<t:Table id="tableFormasPagamento" rows="{NovaVenda>/tInfosPagamento/}" selectionMode="None" visibleRowCount="5">
+<t:columns>
+<t:Column width="4em" hAlign="Center" resizable="false">
+<t:template>
+<Button icon="sap-icon://sys-cancel" type="Reject" tap="onClearFormaPagamento"/>
+</t:template>
+</t:Column>
+<t:Column width="15em">
+<Label required="true" text="Forma de Pagamento"/>
+<t:template>
+<Select forceSelection="false" selectedKey="{NovaVenda>idFormasPagamento}" items="{InputHelpFormasPagamento>/}" change="onFormaPagamentoChange">
+<core:Item key="{InputHelpFormasPagamento>id}" text="{InputHelpFormasPagamento>nome}"/>
+</Select>
+</t:template>
+</t:Column>
+<t:Column width="7em">
+<Label text="NSU"/>
+<t:template>
+<Input value="{NovaVenda>nsu}" enabled="{ path: 'NovaVenda>idFormasPagamento', formatter: '.formatterFormaPagamentoCartao' }"/>
+</t:template>
+</t:Column>
+<t:Column width="13em">
+<Label required="true" text="Oper. Cartão"/>
+<t:template>
+<Select forceSelection="false" selectedKey="{NovaVenda>idOperadorasCartao}" items="{InputHelpOperadorasCartao>/}" enabled="{ path: 'NovaVenda>idFormasPagamento', formatter: '.formatterFormaPagamentoCartao' }">
+<core:Item key="{InputHelpOperadorasCartao>id}" text="{InputHelpOperadorasCartao>nome}"/>
+</Select>
+</t:template>
+</t:Column>
+<t:Column width="13em">
+<Label required="true" text="Bandeira Cartão"/>
+<t:template>
+<Select forceSelection="false" selectedKey="{NovaVenda>idBandeirasCartao}" items="{InputHelpBandeirasCartao>/}" enabled="{ path: 'NovaVenda>idFormasPagamento', formatter: '.formatterFormaPagamentoCartao' }">
+<core:Item key="{InputHelpBandeirasCartao>id}" text="{InputHelpBandeirasCartao>id} - {InputHelpBandeirasCartao>nome}"/>
+</Select>
+</t:template>
+</t:Column>
+<t:Column width="5em">
+<Label text="Parcelas"/>
+<t:template>
+<Input type="Number" value="{NovaVenda>parcelas}" liveChange="parcelasLiveChange"/>
+</t:template>
+</t:Column>
+<t:Column width="13em" hAlign="Right">
+<Label text="Vale Bônus"/>
+<t:template>
+<Select change="onValesBonusChanged" enabled="{ path: 'NovaVenda>idFormasPagamento', formatter: '.formatterFormaPagamento' }" forceSelection="false" selectedKey="{NovaVenda>idValesBonus}" items="{InputHelpValesBonus>/}">
+<core:Item key="{InputHelpValesBonus>id}" text="{InputHelpValesBonus>id} - {InputHelpValesBonus>valor} - {InputHelpValesBonus>dataCriacao}"/>
+</Select>
+</t:template>
+</t:Column>
+<t:Column width="5em" hAlign="Right">
+<Label text="Valor"/>
+<t:template>
+<Input type="Number" value="{NovaVenda>valor}" valueLiveUpdate="true" liveChange="valorLiveChange"/>
+</t:template>
+</t:Column>
+<t:Column width="8em" hAlign="Right">
+<Label text="Valor da Parcela"/>
+<t:template>
+<Input enabled="false" type="Number" value="{NovaVenda>valorParcela}"/>
+</t:template>
+</t:Column>
+<!-- <t:Column width="6em" hAlign="Right">
+							<Label text="Cheque"/>
+							<t:template>
+								<Input value="{NovaVenda>numeroChequePresente}"/>
+							</t:template>
+						</t:Column> -->
+<t:Column width="4em" hAlign="Center" resizable="false">
+<t:template>
+<core:Icon src="{path:'NovaVenda>processarPagIntegracao',formatter:'.formatterIconIntegracao'}" press="onProcessPagamento" visible="{path:'NovaVenda>processarPagIntegracao',formatter:'.formatterIconVisibleIntegracao'}"> </core:Icon>
+</t:template>
+</t:Column>
+<t:Column width="4em" hAlign="Center" resizable="false">
+<t:template>
+<core:Icon src="sap-icon://sys-cancel" press="onProcessCancelamento" visible="{ path:'NovaVenda>processarPagIntegracao', formatter:'.formatterIconVisibleCancelamento' }"> </core:Icon>
+</t:template>
+</t:Column>
+<t:Column width="4em" hAlign="Center" resizable="false">
+<t:template>
+<core:Icon src="sap-icon://refresh" press="onRefreshStatusPagamento" visible="{ path:'NovaVenda>id', formatter:'.formatterIconRefreshStatusIntegracao' }"> </core:Icon>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</ScrollContainer>
+<l:HorizontalLayout>
+<f:SimpleForm id="idFormDetalheVendaLocalEntrega" editable="false" layout="ResponsiveGridLayout" labelSpanL="4" columnsL="3" columnsM="3">
+<f:content>
+<core:Title text="Local de Entrega"/>
+<Label text="Nome"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/nome}"/>
+<Label text="Telefone"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/telefone}"/>
+<Label text="Celular"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/celular}"/>
+<!-- <core:Title />
+						<Label required="true" text="Código Postal"/>
+						<l:HorizontalLayout>
+						<MaskInput enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" value="{NovaVenda>/sLocalEntrega/codigoPostal}" mask="99999-999" placeholderSymbol="_" placeholder="Digite o CEP (apenas números)"/>
+						<Button enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" icon="sap-icon://search" press="onAlterarLocalEntregaBuscaCep"/>
+						</l:HorizontalLayout>
+						<Label required="true" text="Logradouro"/>
+						<Input enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" value="{NovaVenda>/sLocalEntrega/logradouro}"/>
+						<Label required="true" text="Número"/>
+						<Input enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" value="{NovaVenda>/sLocalEntrega/numero}"/>
+						<Label text="Complemento"/>
+						<Input enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" value="{NovaVenda>/sLocalEntrega/complemento}"/>
+						<Label required="true" text="Bairro"/>
+						<Input enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" value="{NovaVenda>/sLocalEntrega/bairro}"/>
+						<Label required="true" text="Cidade"/>
+						<Input enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" value="{NovaVenda>/sLocalEntrega/cidade}"/>
+						<Label required="true" text="UF"/>
+						<Input enabledd="{NovaVenda>/sLocalEntrega/pessoaFisica}" value="{NovaVenda>/sLocalEntrega/uf}"/> -->
+</f:content>
+</f:SimpleForm>
+<f:SimpleForm id="idFormDetalheVendaLocalEntrega2" editable="false" layout="ResponsiveGridLayout" labelSpanL="4" columnsL="3" columnsM="3">
+<f:content>
+<core:Title/>
+<Label text="Código Postal"/>
+<l:HorizontalLayout>
+<MaskInput enabled="false" value="{NovaVenda>/sLocalEntrega/codigoPostal}" mask="99999-999" placeholderSymbol="_" placeholder="Digite o CEP (apenas números)"/>
+<!-- <Button icon="sap-icon://search" press="onAlterarLocalEntregaBuscaCep"/> -->
+</l:HorizontalLayout>
+<Label text="Logradouro"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/logradouro}"/>
+<Label text="Número"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/numero}"/>
+<Label text="Complemento"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/complemento}"/>
+<Label text="Bairro"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/bairro}"/>
+<Label text="Cidade"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/cidade}"/>
+<Label text="UF"/>
+<Input enabled="false" value="{NovaVenda>/sLocalEntrega/uf}"/>
+</f:content>
+</f:SimpleForm>
+<f:SimpleForm id="idFormDetalheVenda" editable="true" layout="ResponsiveGridLayout" labelSpanL="4" columnsL="3" columnsM="3">
+<f:content>
+<core:Title text="Detalhes da venda"/>
+<Label design="Bold" text="Valor Total "/>
+<Text text="{ parts: [{path: 'NovaVenda>/valorTotal'}, {path: 'NovaVenda>/moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+<Label design="Bold" text="Diferença "/>
+<Text text="{ parts: [{path: 'NovaVenda>/diferenca'}, {path: 'NovaVenda>/moeda'}] , type:'sap.ui.model.type.Currency', formatOptions: { preserveDecimals : false } }"/>
+<Label visible="{NovaVenda>/exigeSenhaGerencial}" text="Senha gerencial" mandatory="true"/>
+<Input visible="{NovaVenda>/exigeSenhaGerencial}" value="{NovaVenda>/senhaGerencial}" type="Password"/>
+<core:Title text="Cliente" id="idTitleCliente"/>
+<Label text="CPF" id="idLabelClienteCPF"/>
+<MaskInput mask="999.999.999-99" change="handleChangeCpf" id="idInputClienteCPF" enabled="true">
+<rules>
+<MaskInputRule maskFormatSymbol="9" regex="[0-9A-Z]"/>
+</rules>
+</MaskInput>
+<Label text="CNPJ" id="idLabelClienteCNPJ"/>
+<MaskInput mask="99.999.999/9999-99" change="handleChangeCNPJ" id="idInputClienteCNPJ" enabled="true">
+<rules>
+<MaskInputRule maskFormatSymbol="9" regex="[0-9A-Z]"/>
+</rules>
+</MaskInput>
+</f:content>
+</f:SimpleForm>
+</l:HorizontalLayout>
+</content>
+<buttons>
+<Button text="Voltar" type="Transparent" press="onCancelFinalizarVenda"/>
+<Button text="Finalizar" type="Accept" press="onSubmitFinalizarVenda"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
