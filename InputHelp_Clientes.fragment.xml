@@ -1,0 +1,89 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:vhd="sap.ui.comp.valuehelpdialog" xmlns:fb="sap.ui.comp.filterbar" xmlns:t="sap.ui.table">
+<!-- <TableSelectDialog noDataText="Nenhum cliente encontrado!" 
+		title="Selecionar o Cliente" search="inputHelpClientesLiveSearch" confirm="inputHelpClientesClose"
+		close="inputHelpClientesClose" items="{InputHelpClientes>/}" contentWidth="1024px"
+		growing="true" growingThreshold="5">
+		<ColumnListItem>
+			<cells>
+				<Text text="{InputHelpClientes>id}" />
+				<Text text="{InputHelpClientes>nome}" />
+				<Text text="{InputHelpClientes>cpf}{InputHelpClientes>cnpj}" />
+				<core:Icon src="{ path: 'InputHelpClientes>statusCreditoOk', formatter: '.formatterStatusCreditoOkIcon' }" color="{ path: 'InputHelpClientes>statusCreditoOk', formatter: '.formatterStatusCreditoOkColor' }" />
+				<Text text="{ parts: [{path: 'InputHelpClientes>limiteCredito'}, {path: 'InputHelpClientes>limiteCreditoMoeda'}] , type:'sap.ui.model.type.Currency' }" />
+				<Text text="{InputHelpClientes>cidade}" />
+				<Text text="{InputHelpClientes>uf}" />
+				<Text text="{InputHelpClientes>telefone}" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="3em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="ID" />
+				</header>
+			</Column>
+			<Column width="14em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Nome" />
+				</header>
+			</Column>
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="CPF/CNPJ" />
+				</header>
+			</Column>
+			<Column width="3em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Status Créd." />
+				</header>
+			</Column>
+			<Column width="3em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Limite" />
+				</header>
+			</Column>
+			<Column width="6em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Cidade" />
+				</header>
+			</Column>
+			<Column width="3em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="UF" />
+				</header>
+			</Column>
+			<Column width="6em" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Telefone" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog> -->
+<vhd:ValueHelpDialog title="Clientes" supportMultiselect="false" supportRanges="false" stretch="true" cancel="inputHelpClientesCancel" supportRangesOnly="false" ok="inputHelpClientesOk" key="id" descriptionKey="nome">
+<vhd:filterBar>
+<fb:FilterBar reset="onReset" search="onInputHelpClientesFilterSearch" showRestoreButton="false" showClearButton="false" filterBarExpanded="true" showGoOnFB="true">
+<fb:filterItems>
+<fb:FilterItem name="InputHelpClientesId" label="ID">
+<fb:control>
+<Input type="Text" placeholder="ID cliente"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="InputHelpClientesNome" label="Nome">
+<fb:control>
+<Input type="Text" placeholder="Nome cliente"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="InputHelpClientesCpf" label="CPF">
+<fb:control>
+<MaskInput mask="999.999.999-99" placeholderSymbol="_" placeholder="Digite o CPF (apenas números)"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="InputHelpClientesCnpj" label="CNPJ">
+<fb:control>
+<MaskInput mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="Digite o CNPJ (apenas números)"/>
+</fb:control>
+</fb:FilterItem>
+</fb:filterItems>
+</fb:FilterBar>
+</vhd:filterBar>
+</vhd:ValueHelpDialog>
+</core:FragmentDefinition>
