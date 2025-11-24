@@ -1,0 +1,31 @@
+<core:View xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="controller.Sangria">
+<Page visible="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaAberto' }" showFooter="true" showHeader="false">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="8" columnsL="3" columnsM="2">
+<f:content>
+<core:Title text="Sangria (retirada)"/>
+<Label text="Usuário"/>
+<Text text="{Profile>/nome}"/>
+<Label text="Data"/>
+<Text id="textDataRetirada"/>
+<Label text="Hora"/>
+<Text id="textHoraRetirada"/>
+<Label text="Caixa"/>
+<Text text="{Profile>/id}"/>
+<Label required="true" text="Valor da retirada"/>
+<Input id="retiradaCaixaValor" type="Number"/>
+<Label required="true" text="Senha gerencial"/>
+<Input type="Password" id="inputSenhaGerencial"/>
+</f:content>
+</f:SimpleForm>
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+<Button enabled="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaAberto' }" tap="onRetirada" text="Autorizar Retirada" type="Accept"/>
+</Toolbar>
+</footer>
+</Page>
+<MessagePage visible="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaFechado' }" icon="sap-icon://locked" text="É necessário abrir o caixa para acessar essa funcionalidade" description=""/>
+</core:View>
