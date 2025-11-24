@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+<Dialog title="" type="Message" class="sapUiResponsiveContentPadding">
+<content>
+<Table items="{BackendException>/error/details/}" selectionMode="None" visibleRowCount="3">
+<columns>
+<Column width="1em" minScreenWidth="Tablet"/>
+<Column width="2em" minScreenWidth="Tablet"/>
+<Column width="14em" minScreenWidth="Tablet" demandPopin="true"/>
+</columns>
+<items>
+<ColumnListItem>
+<cells>
+<Text text="{BackendException>code}"/>
+<Text text="{BackendException>target}"/>
+<Text text="{BackendException>message}"/>
+</cells>
+</ColumnListItem>
+</items>
+</Table>
+</content>
+<endButton>
+<Button text="OK" type="Transparent"/>
+</endButton>
+<buttons>
+<Button text="OK" type="Transparent" press="closeBackendException"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
