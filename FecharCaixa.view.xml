@@ -1,0 +1,35 @@
+<core:View xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="controller.FecharCaixa">
+<!--  <Page visible="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaAberto' }" showHeader="false" class="sapUiResponsiveContentPadding">  -->
+<Page visible="{Caixa>/aberto}" showHeader="false" class="sapUiResponsiveContentPadding">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="8" columnsL="3" columnsM="2">
+<f:content>
+<core:Title text="Fechar Caixa"/>
+<Label text="Usuário"/>
+<Text id="idClose" text="{Caixa>/id}"/>
+<Label text="Data"/>
+<Text id="textDataFechamento"/>
+<Label text="Hora"/>
+<Text id="textHoraFechamento"/>
+<Label text="Caixa"/>
+<Text text="{Profile>/id}"/>
+<Label text="Saldo em espécie"/>
+<Input id="saldoEspecieFechamento" type="Number"/>
+<Label required="true" text="Loja ( centro )"/>
+<Text id="selectLojaVendedorClose" text=""/>
+<Label required="true" text="Terminal PDV"/>
+<Text id="selectPDVClose" text=""/>
+</f:content>
+</f:SimpleForm>
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+<Button tap="onFecharCaixa" text="Fechar Caixa" type="Reject"/>
+</Toolbar>
+</footer>
+</Page>
+<!--  <MessagePage visible="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaFechado' }" icon="sap-icon://locked" text="É necessário abrir o caixa para acessar essa funcionalidade" description="" />  -->
+<MessagePage visible="{= !${Caixa>/aberto} }" icon="sap-icon://locked" text="É necessário abrir o caixa para acessar essa funcionalidade" description=""/>
+</core:View>
