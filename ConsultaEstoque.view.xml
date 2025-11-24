@@ -1,0 +1,110 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<core:View xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns="sap.m" controllerName="controller.ConsultaEstoque">
+<Page showFooter="true" showHeader="false">
+<content>
+<ScrollContainer focusable="true" horizontal="true" class="sapUiContentPadding">
+<t:Table id="tableItens" resizable="false" rows="{Estoque>/tItens}" selectionMode="None" visibleRowCount="15">
+<t:toolbar>
+<Toolbar>
+<Input visible="true" id="inputSelecionaCodigoMaterialEstoque" placeholder="Selecionar Material" change="onChangeCodigoMaterial" showValueHelp="true" valueHelpRequest="onInputHelpMateriais" width="50%" suggestionItems="{InputHelpMateriais>/}" selectedKey="" showTableSuggestionValueHelp="true" showSuggestion="true" suggest="onSuggetsMaterial">
+<suggestionItems>
+<core:ListItem key="{InputHelpMateriais>id}" text="{InputHelpMateriais>id}" additionalText="{InputHelpMateriais>descricao}"/>
+</suggestionItems>
+</Input>
+<Select id="inputHelpLocaisExpedicaoConsultaEstoque" items="{InputHelpLocaisExpedicao>/}">
+<core:Item key="{InputHelpLocaisExpedicao>id}" text="{InputHelpLocaisExpedicao>id} - {InputHelpLocaisExpedicao>descricao} - {InputHelpLocaisExpedicao>cnpj}"/>
+</Select>
+<ToolbarSpacer/>
+<Text text="Exibir Info. Adicional:"/>
+<Switch state="{ScreenControl>/showMore}" customTextOn="Sim" customTextOff="Não">
+<layoutData>
+<FlexItemData growFactor="1"/>
+</layoutData>
+</Switch>
+</Toolbar>
+</t:toolbar>
+<t:columns>
+<t:Column width="4em" hAlign="Center" resizable="false">
+<t:template>
+<Button icon="sap-icon://sys-cancel" type="Reject" tap="onRemoveItensTableLine"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<Label required="true" text="Material"/>
+<t:template>
+<Text text="{Estoque>id}"/>
+</t:template>
+</t:Column>
+<t:Column width="16em">
+<Label text="Material"/>
+<t:template>
+<Text text="{Estoque>descricao}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<Label text="Unidade"/>
+<t:template>
+<Text text="{Estoque>unidade}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<Label text="Endereço"/>
+<t:template>
+<Text text="{Estoque>sEstoque/endereco}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<Label text="Estoque loja"/>
+<t:template>
+<Text text="{Estoque>sEstoque/estoque1}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em">
+<Label text="Estoque alternativo"/>
+<t:template>
+<Text text="{Estoque>sEstoque/estoque2}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em" hAlign="Right">
+<Label design="Bold" text="Desconto (%)"/>
+<t:template>
+<!-- <Input value="{Estoque>desconto}" valueState="{ path: 'Estoque>descontoMaximo', formatter: '.formatterDescontoStatus' }" valueStateText="{ path: 'Estoque>descontoMaximo', formatter: '.formatterDescontoStatusTexto' }" type="Number" /> -->
+<Input formatError="onErrorDesconto" parseError="onErrorDesconto" validationError="onErrorDesconto" validationSuccess="onSuccessQuantidade" change="onChangeDesconto" value="{ path:'Estoque>desconto', type:'sap.ui.model.type.Float', formatOptions: { minIntegerDigits: 1, minFractionDigits: 3, maxFractionDigits: 3, groupingEnabled: true, groupingSeparator: '.', decimalSeparator: ',' } }"/>
+</t:template>
+<!-- <t:menu>
+								<u:Menu>
+									<u:items>
+										<u:MenuItem text="Replicar primeiro produto" select="onReplicarDescontoItens" />
+									</u:items>
+								</u:Menu>
+							</t:menu> -->
+</t:Column>
+<t:Column width="10em" hAlign="Right">
+<Label text="Valor Unitário"/>
+<t:template>
+<Text text="{ parts: [{path: 'Estoque>valorUnitarioCalculado'}, {path: 'Estoque>sEstoque/moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+</t:Column>
+<t:Column width="10em" hAlign="Right" visible="{ScreenControl>/showMore}">
+<Label text="Valor Un. Colaborador"/>
+<t:template>
+<Text text="{ parts: [{path: 'Estoque>valorUnitarioPrestadorCalculado'}, {path: 'Estoque>sEstoque/moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</ScrollContainer>
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+<Button text="Limpar" press="onLimparConsultaEstoque" type="Transparent"/>
+<Text text="Valor total: "/>
+<Text text="{ parts: [{path: 'Estoque>/valorTotal'}, {path: 'Estoque>/moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+<Text visible="{ScreenControl>/showMore}" text="Valor total Colaborador: "/>
+<Text visible="{ScreenControl>/showMore}" text="{ parts: [{path: 'Estoque>/valorTotalPrestador'}, {path: 'Estoque>/moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</Toolbar>
+</footer>
+</Page>
+</core:View>
