@@ -1,0 +1,222 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" height="100%" controllerName="controller.RelatorioFinanceiro">
+<Page showFooter="true" showHeader="false">
+<l:VerticalLayout width="100%">
+<fb:FilterBar reset="onReset" search="onSearch" showRestoreButton="false" showClearButton="false">
+<fb:filterItems>
+<fb:FilterItem name="Empresas" label="Empresa" mandatory="true">
+<fb:control>
+<Select items="{InputHelpEmpresas>/}">
+<core:Item key="{InputHelpEmpresas>id}" text="{InputHelpEmpresas>id} - {InputHelpEmpresas>descricao}"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Clientes" mandatory="true" label="Cliente" labelTooltip="Selecione o cliente para gerar o relatório">
+<fb:control>
+<Input valueHelpOnly="false" placeholder="Selecionar Cliente" showValueHelp="true" id="multiInputClienteFinanceiro" valueHelpRequest="onInputHelpClientes"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Status" label="Status" mandatory="true">
+<fb:control>
+<Select id="inputParcelas" selectionChange="financialReportParcelasInput" change="financialReportParcelasInput">
+<!-- <core:Item key="1" text="Parcelas Pendentes" />
+								<core:Item key="2" text="Parcelas em Atraso" /> -->
+<core:Item key="4" text="Parcelas no Mês"/>
+<core:Item key="5" text="Parcelas Próximo Mês"/>
+<core:Item key="3" text="Todas as parcelas"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="DataInicialInput" id="DataInicialInput" label="Data Inicial">
+<fb:control>
+<DatePicker id="DataInicialInputDp" placeholder="Data inicial..." change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" enabled="false"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="DataFinalInput" id="DataFinalInput" label="Data Final">
+<fb:control>
+<DatePicker id="DataFinalInputDp" placeholder="Data final..." change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" enabled="false"/>
+</fb:control>
+</fb:FilterItem>
+</fb:filterItems>
+</fb:FilterBar>
+</l:VerticalLayout>
+<l:VerticalLayout width="100%">
+<l:content>
+<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
+<f:Form id="FormDisplay354" minWidth="1024" editable="false" class="isReadonly">
+<f:title>
+<core:Title text="Resultado da busca"/>
+</f:title>
+<f:layout>
+<f:ResponsiveGridLayout labelSpanL="5" labelSpanM="5" emptySpanL="4" emptySpanM="4" columnsL="3" columnsM="3"/>
+</f:layout>
+<f:formContainers>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Nome">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/nome}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Local">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/local}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Título">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/titulo}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Total à vencer">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/totalVencer}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Total vencidos">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/totalVencidos}"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+</f:formContainers>
+<f:formContainers>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Limite Crédito">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/limiteCredito}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Limite Disponível">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/limiteDisponivel}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Pedido Venda">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/pedidoVenda}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Dívidas a Receber">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/dividasReceber}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Compromisso Total">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/compromissoTotal}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Esgotamento %">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/esgotamento}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Bloqueado">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/bloqueado}"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+</f:formContainers>
+<f:formContainers>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Dt Criação Cliente">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/dataCriacaoCliente}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Dt Últ Verificação">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/dataUltimaVerificacao}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Dt Próx Verificação">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/dataProximaVerificao}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Vlr Remessa Aberto">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/valorRemessaAberto}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Vlr Faturas Aberto">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/valorFaturasAberto}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Dt Últ Pagamento">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/dataUltimoPagamento}"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Vlr Últ Pagamento">
+<f:fields>
+<Text text="{RelatorioFinanceiro>/valorUltimoPagamento}"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+</f:formContainers>
+</f:Form>
+<Table id="idProductsTable" items="{RelatorioFinanceiro>/tClientesRelfinancval}">
+<columns>
+<Column id="columnData" minScreenWidth="Tablet" demandPopin="true">
+<Text text="Data" design="Bold"/>
+</Column>
+<Column id="columnRef" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+<Text text="Referência" design="Bold"/>
+</Column>
+<Column id="columnCatPag" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+<Text text="Cat.Pagamento" design="Bold"/>
+</Column>
+<Column id="columnItem" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+<Text text="Item" design="Bold"/>
+</Column>
+<Column id="columnDias" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+<Text text="Dias" design="Bold"/>
+</Column>
+<Column id="columnMont" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+<Text text="Montante" design="Bold"/>
+</Column>
+<Column id="columnVencLiq" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+<Text text="Venc. Líquido" design="Bold"/>
+</Column>
+<Column id="columnTipoDoc" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+<Text text="Tipo Documento" design="Bold"/>
+</Column>
+<Column id="columnNumDoc" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+<Text text="Número Documento" design="Bold"/>
+</Column>
+</columns>
+<items>
+<ColumnListItem>
+<cells>
+<Text text="{RelatorioFinanceiro>docDate}"/>
+<Text text="{RelatorioFinanceiro>refDocNo}"/>
+<Text text="{RelatorioFinanceiro>pmnttrms}"/>
+<Text text="{RelatorioFinanceiro>itemNum}"/>
+<Text text="{RelatorioFinanceiro>eDays}"/>
+<Text text="{ parts: [{path: 'RelatorioFinanceiro>lcAmount'}, {path: 'RelatorioFinanceiro>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+<Text text="{RelatorioFinanceiro>hdatum}"/>
+<Text text="{RelatorioFinanceiro>docType}"/>
+<Text text="{RelatorioFinanceiro>docNo}"/>
+</cells>
+</ColumnListItem>
+</items>
+</Table>
+</ScrollContainer>
+</l:content>
+</l:VerticalLayout>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+</Toolbar>
+</footer>
+</Page>
+</mvc:View>
