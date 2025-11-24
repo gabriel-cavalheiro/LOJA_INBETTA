@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns="sap.m">
+<Text text="Loja: "/>
+<Text width="10em" enabled="false" text="{Caixa>/idLoja}"/>
+<Text text="Caixa: "/>
+<Text width="10em" enabled="false" text="{Caixa>/id}"/>
+<Text text="Status: "/>
+<Text width="10em" enabled="false" text="{ path: 'Caixa>/aberto', formatter: '.formatterFooterStatusText' }"/>
+</core:FragmentDefinition>
