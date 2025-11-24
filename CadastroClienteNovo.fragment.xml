@@ -1,0 +1,68 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+<Dialog contentWidth="1024px" title="Cadastro de clientes - Novo" type="Standard">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="4" columnsL="3" columnsM="2">
+<f:content>
+<core:Title text="Contato"/>
+<Label required="true" text="Nome"/>
+<Input value="{NovoCliente>/nome}"/>
+<Label required="true" text="Telefone"/>
+<Input value="{NovoCliente>/telefone}"/>
+<Label text="Celular"/>
+<Input value="{NovoCliente>/celular}"/>
+<Label text="Fax"/>
+<Input value="{NovoCliente>/fax}"/>
+<Label required="true" text="E-mail"/>
+<Input value="{NovoCliente>/email}"/>
+<Label required="true" text="Pessoa"/>
+<RadioButton groupName="A" selected="{NovoCliente>/pessoaFisica}" text="Pessoa Física" visible="{NovoCliente>/isCPF}"/>
+<RadioButton groupName="A" selected="{NovoCliente>/pessoaJuridica}" text="Pessoa Jurídica" visible="{NovoCliente>/isCNPJ}"/>
+<Label text="CPF" visible="{NovoCliente>/pessoaFisica}"/>
+<MaskInput value="{NovoCliente>/cpf}" mask="999.999.999-99" placeholderSymbol="_" placeholder="Digite o CPF (apenas números)" visible="{NovoCliente>/pessoaFisica}"/>
+<Label text="CNPJ" visible="{NovoCliente>/pessoaJuridica}"/>
+<MaskInput value="{NovoCliente>/cnpj}" mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="Digite o CNPJ (apenas números)" visible="{NovoCliente>/pessoaJuridica}"/>
+<Label required="true" text="Tipo IE" visible="{NovoCliente>/pessoaJuridica}"/>
+<RadioButton groupName="B" selected="{NovoCliente>/tipoIeIsento}" text="Isento" visible="{NovoCliente>/pessoaJuridica}"/>
+<RadioButton groupName="B" selected="{NovoCliente>/tipoIeContribuinte}" text="Contribuinte" visible="{NovoCliente>/pessoaJuridica}"/>
+<Label text="Inscrição Estadual" visible="{NovoCliente>/pessoaJuridica}"/>
+<MaskInput visible="{NovoCliente>/pessoaJuridica}" value="{NovoCliente>/inscricaoEstadual}" mask="999999999999999999" placeholderSymbol="_" placeholder="Digite a Inscrição Estadual (apenas números)"/>
+<core:Title text="Endereço"/>
+<Label required="true" text="Código Postal"/>
+<l:HorizontalLayout>
+<MaskInput value="{NovoCliente>/codigoPostal}" mask="99999-999" placeholderSymbol="_" placeholder="Digite o CEP (apenas números)" change="onCadastroClienteNovoBuscaCep"/>
+<Button icon="sap-icon://search" press="onCadastroClienteNovoBuscaCep"/>
+</l:HorizontalLayout>
+<Label required="true" text="Logradouro"/>
+<Input value="{NovoCliente>/logradouro}"/>
+<Label required="true" text="Número"/>
+<Input value="{NovoCliente>/numero}"/>
+<Label text="Complemento"/>
+<Input value="{NovoCliente>/complemento}"/>
+<Label required="true" text="Bairro"/>
+<Input value="{NovoCliente>/bairro}"/>
+<Label required="true" text="Cidade"/>
+<Input value="{NovoCliente>/cidade}"/>
+<Label required="true" text="País"/>
+<Select selectedKey="{NovoCliente>/pais}" items="{InputHelpPaises>/}" change="onPaisSelected">
+<core:Item key="{InputHelpPaises>id}" text="{InputHelpPaises>id} - {InputHelpPaises>denominacao}"/>
+</Select>
+<!-- <Input value="{NovaVenda>/sClientes/pais}"/> -->
+<Label required="true" text="UF"/>
+<Select selectedKey="{NovoCliente>/uf}" items="{InputHelpRegioes>/}">
+<core:Item key="{InputHelpRegioes>id}" text="{InputHelpRegioes>id} - {InputHelpRegioes>denominacao}"/>
+</Select>
+<!-- <Input value="{NovoCliente>/uf}"/> -->
+<!-- <Label required="true" text="Grupo de Clientes" />	
+					<Select selectedKey="{NovoCliente>/grupoClientes}" items="{InputHelpGrupo>/}" change="onGrupoCliente">
+						<core:Item key="{InputHelpGrupo>id}" text="{InputHelpGrupo>id} - {InputHelpGrupo>denominacao}"/>
+					</Select> -->
+</f:content>
+</f:SimpleForm>
+</content>
+<buttons>
+<Button text="Cancelar" type="Transparent" press="onCadastroClienteNovoCancelar"/>
+<Button text="Finalizar Cadastro" type="Accept" press="onCadastroClienteNovoFinalizar"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
