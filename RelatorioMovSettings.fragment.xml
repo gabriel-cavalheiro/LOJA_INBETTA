@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns="sap.m">
+<Dialog contentWidth="320px" title="Configurações de Relatório" type="Message">
+<content>
+<t:Table id="relatorioMovimentacoesSettings" rows="{InputHelpFormasPagamento>/}" selectionMode="MultiToggle">
+<t:columns>
+<t:Column width="11rem">
+<Label text="Forma de Pagamento"/>
+<t:template>
+<Text text="{InputHelpFormasPagamento>nome}"/>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</content>
+<endButton>
+<Button text="OK" type="Transparent"/>
+</endButton>
+<buttons>
+<Button text="OK" type="Transparent" press="onCloseSettingsRelatorio"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
