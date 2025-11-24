@@ -1,0 +1,138 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<mvc:View xmlns:c="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns:mc="sap.suite.ui.microchart" xmlns:t="sap.ui.table" xmlns="sap.ui.comp.variants" xmlns:st="sap.ui.comp.smarttable" xmlns:viz="sap.viz.ui5.controls" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:smartField="sap.ui.comp.smartfield" xmlns:fb="sap.ui.comp.filterbar" controllerName="controller.Dashboard" height="100%">
+<m:Page class="sapUiContentPadding" showFooter="true" showSubHeader="true" title="Dashboard - Consolidado" showHeader="true">
+<m:content>
+<l:VerticalLayout width="100%">
+<l:HorizontalLayout width="100%">
+<m:Panel class="sapUiDemoFlexBoxSizeAdjustments">
+<m:FlexBox alignItems="Start">
+<m:items>
+<m:GenericTile header="Preço Médio" subheader="Últimos 30 dias" frameType="OneByOne" press="press" class="sapUiTinyMargin">
+<m:TileContent>
+<m:NumericContent value="{/precoMedio}" valueColor="Neutral"/>
+</m:TileContent>
+</m:GenericTile>
+<m:GenericTile header="Ticket Médio" subheader="Últimos 30 dias" frameType="OneByOne" press="press" class="sapUiTinyMargin">
+<m:TileContent>
+<m:NumericContent value="{/ticketMedio}" valueColor="Neutral"/>
+</m:TileContent>
+</m:GenericTile>
+<m:GenericTile header="Quantidade de Tickets" subheader="Últimos 30 dias" frameType="OneByOne" press="press" class="sapUiTinyMargin">
+<m:TileContent>
+<m:NumericContent value="{/quantidadeTicket}" valueColor="Good"/>
+</m:TileContent>
+</m:GenericTile>
+<m:GenericTile header="Índice de devolução" subheader="Últimos 30 dias" frameType="OneByOne" press="press" class="sapUiTinyMargin">
+<m:TileContent>
+<m:NumericContent value="{/indiceDevol}" valueColor="Good" scale="%"/>
+</m:TileContent>
+</m:GenericTile>
+</m:items>
+</m:FlexBox>
+</m:Panel>
+</l:HorizontalLayout>
+<l:HorizontalLayout width="100%">
+<m:Panel class="sapUiDemoFlexBoxSizeAdjustments">
+<m:headerToolbar>
+<m:Toolbar>
+<m:Title level="H2" text="Peças por Atendimento"/>
+</m:Toolbar>
+</m:headerToolbar>
+<m:FlexBox alignItems="Start">
+<m:items>
+<m:GenericTile header="Últimos 30 dias" frameType="OneByOne" press="press" class="sapUiTinyMargin">
+<m:TileContent>
+<m:NumericContent value="{/pecasAtendimento}" valueColor="Good"/>
+</m:TileContent>
+</m:GenericTile>
+<m:GenericTile header="Ano Anterior" subheader="Últimos 30 dias" frameType="TwoThirds" press="press" class="sapUiTinyMargin">
+<m:TileContent>
+<m:NumericContent value="{/pecasAnoAnterior}" valueColor="Good"/>
+</m:TileContent>
+<m:TileContent>
+<m:NumericContent value="{/diferencaPecas}" valueColor="Good" indicator="Up" scale="%"/>
+</m:TileContent>
+</m:GenericTile>
+</m:items>
+</m:FlexBox>
+</m:Panel>
+</l:HorizontalLayout>
+<l:HorizontalLayout width="100%">
+<viz:VizFrame id="vizFrameFormasPagamento" visible="true" uiConfig="{applicationSet:'fiori'}" width="980px" vizProperties="{ interaction: { selectability: { mode: 'EXCLUSIVE', axisLabelSelection: false } }, plotArea:{ dataLabel:{ visible: true }, gridline: { visible: false } }, title:{ text:'Faturamento por forma de pagamento', visible:true }, categoryAxis:{ title:{ visible:true, text:'Formas de Pagamento' }, axisTick: { visible: false }, axisLine: { visible: false } }, valueAxis:{ title:{ visible:true, text:'Valor (%)' }, label: { visible: false }, axisTick: { visible: false }, axisLine: { visible: false } } }" height="680px" vizType="column">
+<viz:dataset>
+<viz.data:FlattenedDataset data="{/tDashboardFormasPag}">
+<viz.data:dimensions>
+<viz.data:DimensionDefinition name="FormaPagamento" value="{descricao}"/>
+</viz.data:dimensions>
+<viz.data:measures>
+<viz.data:MeasureDefinition name="Valor" value="{valor}" unit="%"/>
+</viz.data:measures>
+</viz.data:FlattenedDataset>
+</viz:dataset>
+<viz:feeds>
+<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Valor"/>
+<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="FormaPagamento"/>
+</viz:feeds>
+</viz:VizFrame>
+</l:HorizontalLayout>
+<l:HorizontalLayout width="100%">
+<viz:VizFrame id="vizFrameFormasVendasDia" visible="true" width="980px" vizProperties="{ interaction: { selectability: { mode: 'EXCLUSIVE', axisLabelSelection: false } }, plotArea:{ dataLabel:{ visible:true }, gridline: { visible: false } }, title:{ text:'Faturamento por dia da Semana', visible:true }, categoryAxis:{ title:{ visible:true, text:'Dia da semana' }, axisTick: { visible: false }, axisLine: { visible: false } }, valueAxis:{ title:{ visible:true, text:'Valor (%)' }, label: { visible: false }, axisTick: { visible: false }, axisLine: { visible: false } } }" height="680px" vizType="column">
+<viz:dataset>
+<viz.data:FlattenedDataset data="{/vendasDia}">
+<viz.data:dimensions>
+<viz.data:DimensionDefinition name="Dia" value="{dia}"/>
+</viz.data:dimensions>
+<viz.data:measures>
+<viz.data:MeasureDefinition name="Valor" value="{valor}" unit="%"/>
+</viz.data:measures>
+</viz.data:FlattenedDataset>
+</viz:dataset>
+<viz:feeds>
+<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Valor"/>
+<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Dia"/>
+</viz:feeds>
+</viz:VizFrame>
+</l:HorizontalLayout>
+<!-- <l:HorizontalLayout>
+                  <l:VerticalLayout>
+                      <l:layoutData>
+                          <l:GridData span="XL12 L12 M12 S12" />
+                      </l:layoutData>
+                      <m:Text text="Ranking de produtos  - últimos 30 dias" class="sapUiSmallMargin" />
+                      <m:FlexBox width="40rem" height="50rem" alignItems="Center" class="sapUiSmallMargin">
+                          <m:items>
+                              <mc:InteractiveBarChart labelWidth="50%" displayedBars="3" selectionChanged="selectionChanged" press="press">
+                                  <mc:bars>
+                                      <mc:InteractiveBarChartBar label="{/matnr1}" value="{/vlMatnr1}" color="Critical" displayedValue="{/vlMatnr1Display}"/>
+                                      <mc:InteractiveBarChartBar label="{/matnr2}" value="{/vlMatnr2}" color="Good"  displayedValue="{/vlMatnr2Display}"/>
+                                      <mc:InteractiveBarChartBar label="{/matnr3}" value="{/vlMatnr3}" color="Error" displayedValue="{/vlMatnr3Display}"/>
+                                  </mc:bars>
+                              </mc:InteractiveBarChart>
+                          </m:items>
+                      </m:FlexBox>
+                  </l:VerticalLayout>
+                </l:HorizontalLayout> -->
+<l:HorizontalLayout width="100%">
+<m:Panel class="sapUiDemoFlexBoxSizeAdjustments">
+<m:headerToolbar>
+<m:Toolbar>
+<m:Title level="H2" text="Ranking de produtos - últimos 30 dias"/>
+</m:Toolbar>
+</m:headerToolbar>
+<m:FlexBox width="50rem" height="60rem" alignItems="Center" class="sapUiSmallMargin">
+<m:items>
+<mc:InteractiveBarChart labelWidth="45%" displayedBars="3">
+<mc:bars>
+<mc:InteractiveBarChartBar label="{/matnr1}" value="{/vlMatnr1}" color="Critical" displayedValue="{/vlMatnr1Display}"/>
+<mc:InteractiveBarChartBar label="{/matnr2}" value="{/vlMatnr2}" color="Good" displayedValue="{/vlMatnr2Display}"/>
+<mc:InteractiveBarChartBar label="{/matnr3}" value="{/vlMatnr3}" color="Error" displayedValue="{/vlMatnr3Display}"/>
+</mc:bars>
+</mc:InteractiveBarChart>
+</m:items>
+</m:FlexBox>
+</m:Panel>
+</l:HorizontalLayout>
+</l:VerticalLayout>
+</m:content>
+</m:Page>
+</mvc:View>
