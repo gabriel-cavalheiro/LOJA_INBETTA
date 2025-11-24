@@ -1,0 +1,104 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" height="100%" controllerName="controller.RelatorioMovimentacoes">
+<Page showSubHeader="true" showFooter="true" showHeader="false">
+<l:VerticalLayout width="100%">
+<fb:FilterBar reset="onReset" search="onSearch" showRestoreButton="false" showClearButton="false">
+<fb:filterItems>
+<fb:FilterItem name="Caixa" label="Caixa" mandatory="true">
+<fb:control>
+<Select items="{InputHelpCaixas>/}">
+<core:Item key="{InputHelpCaixas>id}" text="{InputHelpCaixas>id}"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Centro" label="Centro" mandatory="true">
+<fb:control>
+<Select items="{InputHelpVendedoresCaixa>/}">
+<core:Item key="{InputHelpVendedoresCaixa>centro}" text="{InputHelpVendedoresCaixa>centro}"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="PDV" label="PDV" mandatory="true">
+<fb:control>
+<Select items="{InputHelpPDV>/}">
+<core:Item key="{InputHelpPDV>pdv}" text="{InputHelpPDV>pdv}"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="StatusCaixa" label="Status">
+<fb:control>
+<Select change="onStatusCaixaChange">
+<core:Item key="1" text="Caixas abertos"/>
+<core:Item key="2" text="Todos"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="PeriodoInicio" label="Data Inicial">
+<fb:control>
+<DatePicker id="relatorioMovimentacoesDataInicial" enabled="false" placeholder="Data inicial..." change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="PeriodoFim" label="Data Final">
+<fb:control>
+<DatePicker id="relatorioMovimentacoesDataFinal" enabled="false" placeholder="Data final..." change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy"/>
+</fb:control>
+</fb:FilterItem>
+</fb:filterItems>
+</fb:FilterBar>
+</l:VerticalLayout>
+<l:VerticalLayout width="100%">
+<l:content>
+<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="true">
+<t:Table id="tableRelatorioMovimentacoes" rows="{Expedientes>/}" selectionMode="Single" visibleRowCount="10">
+<t:columns>
+<t:Column width="6em">
+<Label text="Status"/>
+<t:template>
+<Text text="{ path: 'Expedientes>dataFechamento', formatter: '.formatterStatusExpediente' }"/>
+</t:template>
+</t:Column>
+<t:Column width="10em">
+<Label text="Caixa"/>
+<t:template>
+<Text text="{Expedientes>idUsuarios}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em">
+<Label text="Centro"/>
+<t:template>
+<Text text="{Expedientes>centro}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em">
+<Label text="PDV"/>
+<t:template>
+<Text text="{Expedientes>pdv}"/>
+</t:template>
+</t:Column>
+<t:Column width="12em">
+<Label text="Data/hora Abertura"/>
+<t:template>
+<Text text="{Expedientes>dataAbertura} {Expedientes>horaAbertura}"/>
+</t:template>
+</t:Column>
+<t:Column width="12em">
+<Label text="Data/hora Fechamento"/>
+<t:template>
+<Text text="{Expedientes>dataFechamento} {Expedientes>horaFechamento}"/>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</ScrollContainer>
+</l:content>
+</l:VerticalLayout>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+<Button tap="onChangeSettingsRelatorio" icon="sap-icon://action-settings" type="Transparent"/>
+<Button tap="onRequestRelatorioSintetizado" icon="sap-icon://expense-report" text="Relatório Sintetizado" type="Transparent"/>
+<Button tap="onRequestRelatorioAnalitico" icon="sap-icon://pie-chart" text="Relatório Analítico" type="Transparent"/>
+</Toolbar>
+</footer>
+</Page>
+</mvc:View>
