@@ -1,0 +1,140 @@
+<core:View xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns="sap.m" controllerName="controller.VendaVarejoView">
+<Page showFooter="true" title="{ path: 'VisualizacaoVenda>/devolucao', formatter: '.formatterTituloDocumentoVenda' } {VisualizacaoVenda>/id}" showHeader="true" showNavButton="true" navButtonPress="onNavBack">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="4" columnsL="3" columnsM="2">
+<f:content>
+<core:Title text="Cliente"/>
+<Label text="Código"/>
+<Text text="{VisualizacaoVenda>/sClientes/id}"/>
+<Label text="Nome"/>
+<Text text="{VisualizacaoVenda>/sClientes/nome}"/>
+<Label text="CPF/CNPJ"/>
+<Text text="{VisualizacaoVenda>/sClientes/cpf}{VisualizacaoVenda>/sClientes/cnpj}"/>
+<core:Title text="Venda"/>
+<Label text="Vendedor"/>
+<Text text="{VisualizacaoVenda>/sVendedores/nome}"/>
+<Label text="Tipo de Venda"/>
+<Text text="{VisualizacaoVenda>/sTiposVenda/id} - {VisualizacaoVenda>/sTiposVenda/descricao}"/>
+<Label text="Tipo de Frete"/>
+<Text text="{VisualizacaoVenda>/sTiposFrete/id} - {VisualizacaoVenda>/sTiposFrete/descricao}"/>
+<core:Title text="Informações Adicionais"/>
+<TextArea enabled="false" value="{VisualizacaoVenda>/infoAdicional}" rows="4" wrapping="None"/>
+</f:content>
+</f:SimpleForm>
+<ScrollContainer focusable="true" horizontal="true" class="sapUiContentPadding">
+<t:Table id="tableItens" rows="{VisualizacaoVenda>/tItens/}" selectionMode="None" visibleRowCount="{VisualizacaoVenda>/tItensCount}">
+<t:toolbar>
+<Toolbar>
+<Title text="Produtos" width="10em"/>
+</Toolbar>
+</t:toolbar>
+<t:columns>
+<t:Column width="8em">
+<Label required="true" text="Material"/>
+<t:template>
+<Text text="{VisualizacaoVenda>idMateriais}"/>
+</t:template>
+</t:Column>
+<t:Column width="18em">
+<Label text="Descrição"/>
+<t:template>
+<Text text="{VisualizacaoVenda>sMateriais/descricao}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<Label text="Unidade"/>
+<t:template>
+<Text text="{VisualizacaoVenda>unidade}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em" hAlign="Center">
+<Label required="true" text="Quantidade"/>
+<t:template>
+<Text width="3em" text="{VisualizacaoVenda>quantidade}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em" hAlign="Right">
+<Label design="Bold" text="Desconto (%)"/>
+<t:template>
+<Text text="{VisualizacaoVenda>desconto}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em" hAlign="Right">
+<Label text="Valor Unitário"/>
+<t:template>
+<Text text="{ parts: [{path: 'VisualizacaoVenda>valorUnitario'}, {path: 'VisualizacaoVenda>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+</t:Column>
+<t:Column width="6em" hAlign="Right">
+<Label text="Valor Total"/>
+<t:template>
+<Text text="{ parts: [{path: 'VisualizacaoVenda>valorTotal'}, {path: 'VisualizacaoVenda>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+</t:Column>
+<t:Column width="8em" hAlign="Right">
+<Label text="Condições"/>
+<t:template>
+<Button tap="onShowComposicaoPrecoItem" icon="sap-icon://commission-check" enabled="{ path: 'VisualizacaoVenda>valorTotal', formatter: '.formatterEnableComposicaoItemPreco' }"/>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</ScrollContainer>
+<ScrollContainer focusable="true" horizontal="true" class="sapUiContentPadding">
+<t:Table id="tableFormasPagamento" rows="{VisualizacaoVenda>/tInfosPagamento/}" selectionMode="None" visibleRowCount="{VisualizacaoVenda>/tInfosPagamentoCount}">
+<t:columns>
+<t:Column width="16em">
+<Label text="Forma de Pagamento"/>
+<t:template>
+<Text text="{VisualizacaoVenda>sFormasPagamento/id} - {VisualizacaoVenda>sFormasPagamento/nome}"/>
+</t:template>
+</t:Column>
+<t:Column width="12em">
+<Label text="NSU"/>
+<t:template>
+<Text text="{VisualizacaoVenda>nsu}"/>
+</t:template>
+</t:Column>
+<t:Column width="5em">
+<Label text="Parcelas"/>
+<t:template>
+<Text text="{VisualizacaoVenda>parcelas}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em" hAlign="Right">
+<Label text="N. Vale Bônus"/>
+<t:template>
+<Text text="{VisualizacaoVenda>numeroValeBonus}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em" hAlign="Right">
+<Label text="Valor"/>
+<t:template>
+<Text text="{ parts: [{path: 'VisualizacaoVenda>valor'}, {path: 'VisualizacaoVenda>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+</t:Column>
+<t:Column width="6em" hAlign="Right">
+<Label text="Cheque"/>
+<t:template>
+<Text text="{VisualizacaoVenda>numeroChequePresente}"/>
+</t:template>
+</t:Column>
+<t:Column width="4em" hAlign="Center" resizable="false">
+<t:template>
+<core:Icon src="sap-icon://sys-cancel" press="onProcessCancelamento" visible="{ path:'VisualizacaoVenda>intencaoVendaId', formatter:'.formatterIconVisibleCancelamento' }"> </core:Icon>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</ScrollContainer>
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+<Text text="Valor da Venda: "/>
+<Text text="{ parts: [{path: 'VisualizacaoVenda>/valorTotal'}, {path: 'VisualizacaoVenda>/moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</Toolbar>
+</footer>
+</Page>
+</core:View>
