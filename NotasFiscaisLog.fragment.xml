@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+<Dialog title="Mensagens na consulta de Notas Fiscais" type="Message">
+<content>
+<Table items="{RetornoRelatorio>/retornoerros}" selectionMode="None" visibleRowCount="7">
+<columns>
+<Column width="1em" minScreenWidth="Tablet" demandPopin="true"/>
+<Column width="1em" minScreenWidth="Tablet"/>
+<Column width="1em" minScreenWidth="Tablet"/>
+<Column width="14em" minScreenWidth="Tablet" demandPopin="true"/>
+</columns>
+<items>
+<ColumnListItem>
+<cells>
+<!-- <Text text="{RetornoCotacao>type}" />  -->
+<core:Icon src="{RetornoRelatorio>messageV3}" color="{RetornoRelatorio>messageV4}"/>
+<Text text="{RetornoRelatorio>id}"/>
+<Text text="{RetornoRelatorio>number}"/>
+<Text text="{RetornoRelatorio>message}"/>
+</cells>
+</ColumnListItem>
+</items>
+</Table>
+</content>
+<endButton>
+<Button text="OK" type="Transparent"/>
+</endButton>
+<buttons>
+<Button text="OK" type="Transparent" press="closeErrorSalesDialog"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
