@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns="sap.m">
+<Dialog contentWidth="720px" contentHeight="480px" title="Finalizar Devolução - Formas de pagamento" type="Standard">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="5">
+<f:content>
+<Label design="Bold" text="Valor da Devolução"/>
+<Text text="{ parts: [{path: 'Devolucao>/valorTotal'}, {path: 'Devolucao>/moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+<Label required="true" text="Forma de pagamento"/>
+<RadioButton groupName="A" selected="{Devolucao>/devolucaoDinheiro}" text="Dinheiro"/>
+<RadioButton groupName="A" selected="{Devolucao>/devolucaoVale}" text="Vale Bônus"/>
+<Label visible="{Devolucao>/devolucaoDinheiro}" required="true" text="Senha gerencial"/>
+<Input visible="{Devolucao>/devolucaoDinheiro}" type="Password" value="{Devolucao>/senhaGerencial}"/>
+</f:content>
+</f:SimpleForm>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="5">
+<f:content>
+<Label required="true" text="Método de devolução"/>
+<RadioButton groupName="B" selected="{Devolucao>/metodoRetorno}" text="Retorno"/>
+<!-- <RadioButton groupName="B" selected="{Devolucao>/metodoEstorno}" text="Estorno" /> -->
+<RadioButton groupName="B" selected="{Devolucao>/metodoDevolucao}" text="Devolução"/>
+<Label visible="{Devolucao>/metodoDevolucao}" required="true" text="Nota de Referência"/>
+<Input visible="{Devolucao>/metodoDevolucao}" value="{Devolucao>/devolucaoNfReferencia}"/>
+<Label visible="{Devolucao>/metodoDevolucao}" required="true" text="Data da referência"/>
+<DatePicker visible="{Devolucao>/metodoDevolucao}" placeholder="Data..." change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" value="{Devolucao>/dataReferencia}"/>
+<Label visible="{Devolucao>/metodoDevolucao}" required="true" text="Número de log"/>
+<MaskInput visible="{Devolucao>/metodoDevolucao}" value="{Devolucao>/devolucaoNumeroLog}" mask="999999999999999" placeholderSymbol="" placeholder="Log"/>
+<Label visible="{Devolucao>/metodoDevolucao}" required="true" text="Chave de acesso"/>
+<MaskInput id="idInputDevolucaoPagChaveAcesso" change="onChaveAcessoChange" visible="{Devolucao>/metodoDevolucao}" value="{Devolucao>/devolucaoChaveAcesso}" mask="99999999999999999999999999999999999999999999" placeholderSymbol="" placeholder="Chave NF-e"/>
+</f:content>
+</f:SimpleForm>
+</content>
+<buttons>
+<Button text="Voltar" type="Transparent" press="onCancelFinalizarDevolucao"/>
+<Button text="Finalizar" type="Accept" press="onSubmitFinalizarDevolucao"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
