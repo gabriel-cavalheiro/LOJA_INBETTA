@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<Dialog contentHeight="100%" contentWidth="100%" title="Selecionar o Produto" id="idDialogSelecionarProduto">
+<buttons>
+<Button text="Fechar" press="onInputHelpMateriaisClose"/>
+</buttons>
+<content>
+<Table id="idTableSelectDialog" noDataText="Nenhum produto encontrado!" items="{ path: 'InputHelpMateriais>/' }">
+<headerToolbar>
+<OverflowToolbar width="100%">
+<content>
+<Title text="Produtos" level="H2" titleStyle="H3"/>
+<ToolbarSpacer/>
+<Label text="Com Preços"/>
+<CheckBox id="checkboxComPreco" selected="true" select="onTableSelectDialogCheckBox"/>
+<SearchField id="idTableSelectDialogSearchField" placeholder="Procurar" search="inputHelpMateriaisLiveSearch" width="15rem"/>
+</content>
+</OverflowToolbar>
+</headerToolbar>
+<items>
+<ColumnListItem type="Active" navigated="{ parts: [ 'InputHelpMateriais>id', 'InputHelpMateriais>descricao', 'InputHelpMateriais>tipo', 'InputHelpMateriais>unidade' ], formatter: '.isNavigated' }" press="onInputHelpMateriaisClose">
+<cells>
+<Text text="{InputHelpMateriais>id}"/>
+<Text text="{InputHelpMateriais>descricao}"/>
+<Text text="{InputHelpMateriais>tipo}"/>
+<Text text="{InputHelpMateriais>unidade}"/>
+</cells>
+</ColumnListItem>
+</items>
+<columns>
+<Column width="3em" minScreenWidth="Tablet" demandPopin="true">
+<header>
+<Text text="ID"/>
+</header>
+</Column>
+<Column width="18em" minScreenWidth="Tablet" demandPopin="true">
+<header>
+<Text text="Descrição"/>
+</header>
+</Column>
+<Column width="4em" minScreenWidth="Tablet" demandPopin="true">
+<header>
+<Text text="Tipo"/>
+</header>
+</Column>
+<Column width="4em" minScreenWidth="Tablet" demandPopin="true">
+<header>
+<Text text="Unidade"/>
+</header>
+</Column>
+</columns>
+</Table>
+</content>
+</Dialog>
+</core:FragmentDefinition>
