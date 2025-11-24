@@ -1,0 +1,92 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<core:View xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns="sap.m" xmlns:ux="sap.ui.ux3" id="viewDevolucao" controllerName="controller.Devolucao">
+<Page id="pageDevolucao" visible="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaAberto' }" showFooter="true" showHeader="false">
+<content>
+<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="4" columnsL="3" columnsM="2">
+<f:content>
+<core:Title text="Cliente"/>
+<Label text="Código"/>
+<l:HorizontalLayout>
+<Input enabled="true" valueHelpOnly="false" placeholder="Selecionar Cliente" showValueHelp="true" id="idDevolucaoClienteInput" valueHelpRequest="onInputHelpClientes" value="{Devolucao>/sClientes/id}"/>
+</l:HorizontalLayout>
+<!-- <Label text="Código" />	
+					<Text text="{Devolucao>/sClientes/id}" />
+					<Label text="Nome" />
+					<Text text="{Devolucao>/sClientes/nome}"/>
+					<Label text="CPF/CNPJ" /> -->
+<Text text="{Devolucao>/sClientes/cpf}{Devolucao>/sClientes/cnpj}"/>
+<Label text="Status ver. Crédito"/>
+<Text text="{Devolucao>/sClientes/statusCredito}"/>
+<core:Title text="Venda"/>
+<Label text="Vendedor"/>
+<Text text="{Devolucao>/sVendedores/nome}"/>
+<Label text="Tipo de Venda"/>
+<Text text="{Devolucao>/sTiposVenda/id} - {Devolucao>/sTiposVenda/descricao}"/>
+<Label text="Tipo de Frete"/>
+<Text text="{Devolucao>/sTiposFrete/id} - {Devolucao>/sTiposFrete/descricao}"/>
+<core:Title text="Informações Adicionais"/>
+<TextArea enabled="false" value="{Devolucao>/infoAdicional}" rows="4" wrapping="None"/>
+</f:content>
+</f:SimpleForm>
+<t:Table rows="{Devolucao>/tItens}" selectionMode="None" visibleRowCount="{Devolucao>/tItensCount}">
+<t:toolbar>
+<Toolbar>
+<Title text="Produtos a devolver" width="10em"/>
+</Toolbar>
+</t:toolbar>
+<t:columns>
+<t:Column width="3em">
+<t:template>
+<CheckBox selected="{Devolucao>devolver}" select="changeDevolverSelection"/>
+</t:template>
+</t:Column>
+<t:Column width="16em">
+<Label text="Material"/>
+<t:template>
+<Text text="{Devolucao>idMateriais} - {Devolucao>sMateriais/descricao}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<Label text="Devolver"/>
+<t:template>
+<Input type="Number" enabled="{Devolucao>devolver}" value="{Devolucao>quantidadeDevolucao}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<Label text="Qtde. Venda"/>
+<t:template>
+<Text text="{Devolucao>quantidade}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<Label text="Unidade"/>
+<t:template>
+<Text text="{Devolucao>unidade}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<Label text="Valor unitário"/>
+<t:template>
+<Text text="{ parts: [{path: 'Devolucao>valorUnitario'}, {path: 'Devolucao>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<Label text="Valor final da venda"/>
+<t:template>
+<Text text="{ parts: [{path: 'Devolucao>valorTotal'}, {path: 'Devolucao>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+<Button tap="onAbreConsultaVendasPorNf" text="Consulta venda" type="Transparent"/>
+<Button enabled="{ path: 'Devolucao>/id', formatter: '.formatterVendaInformada' }" tap="onFinalizarDevolucao" text="Finalizar devolução" type="Accept"/>
+</Toolbar>
+</footer>
+</Page>
+<MessagePage visible="{ path: 'Caixa>/aberto', formatter: '.formatterCaixaFechado' }" icon="sap-icon://locked" text="É necessário abrir o caixa para acessar essa funcionalidade" description=""/>
+</core:View>
