@@ -1,0 +1,118 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" controllerName="controller.RelatorioVendasDevolucoes">
+<Page showFooter="true" title="Relatório de vendas e devoluções" showHeader="false" showNavButton="true" navButtonPress="onBack">
+<content>
+<fb:FilterBar clear="onClear" reset="onReset" search="onSearch" showRestoreButton="false" showClearButton="true" showClearOnFB="true">
+<fb:filterItems>
+<fb:FilterItem visible="false" name="Vendedores" label="Vendedores" labelTooltip="Escolher Vendedores para consulta">
+<fb:control>
+<Select forceSelection="false" items="{InputHelpVendedores>/}" change="onVendedoresChange" id="inputHelpVendedoresRelatorioVendasDevolucoes">
+<core:Item key="{InputHelpVendedores>id}" text="{InputHelpVendedores>nome}"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Centro" label="Centro" labelTooltip="Escolher centro para consulta">
+<fb:control>
+<Select id="inputHelpLocaisExpedicaoRelatorioVendasDevolucoes" items="{InputHelpLocaisExpedicao>/}">
+<core:Item key="{InputHelpLocaisExpedicao>id}" text="{InputHelpLocaisExpedicao>id} - {InputHelpLocaisExpedicao>descricao} - {InputHelpLocaisExpedicao>cnpj}"/>
+</Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="CustomerInput" label="Cliente" labelTooltip="Escolher cliente para consulta">
+<fb:control>
+<Input id="inputHelpClientesRelatorioVendasDevolucoes" placeholder="Selecionar Cliente" showValueHelp="true" valueHelpOnly="false" valueHelpRequest="onInputHelpClientes"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="MaterialInput" label="Material" labelTooltip="Escolher material para consulta">
+<fb:control>
+<Input id="inputHelpmaterialRelatorioVendasDevolucoes" placeholder="Selecionar Material" showValueHelp="true" valueHelpRequest="onInputHelpMateriais" suggestionItems="{InputHelpMateriais>/}" selectedKey="" showTableSuggestionValueHelp="true" showSuggestion="true" suggest="onSuggetsMaterial">
+<suggestionItems>
+<core:ListItem key="{InputHelpMateriais>id}" text="{InputHelpMateriais>id}" additionalText="{InputHelpMateriais>descricao}"/>
+</suggestionItems>
+</Input>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="DataCriacaoInicioInput" label="Data Criação">
+<fb:control>
+<DatePicker id="inputHelpDataCriacaoInicioRelatorioVendasDevolucoes" change="valDataPedido" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" placeholder="De..."/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="DataCriacaoFimInput">
+<fb:control>
+<DatePicker id="inputHelpDataCriacaoFimRelatorioVendasDevolucoes" change="valDataPedido" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" placeholder="Até..."/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="StatusDocumentoInput" label="Status">
+<fb:control>
+<ComboBox id="inputHelpStatusDocumentoRelatorioVendasDevolucoes" items="{InputHelpStatusVenda>/}">
+<core:Item key="{InputHelpStatusVenda>id}" text="{InputHelpStatusVenda>descricao}"/>
+</ComboBox>
+</fb:control>
+</fb:FilterItem>
+</fb:filterItems>
+</fb:FilterBar>
+<!-- <f:Form maxContainerCols="2" editable="false" class="isReadonly">
+				<f:title>
+					<core:Title text="Resultado da busca" />
+				</f:title>
+				<f:layout>
+					<f:ResponsiveGridLayout labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" />
+				</f:layout>
+			</f:Form> -->
+<!-- <ScrollContainer minWidth="1024px"> -->
+<!-- <ScrollContainer> -->
+<Table growing="true" growingThreshold="50" id="TableRelatorioVendasDevolucoes" growingScrollToLoad="false" noDataText="Nenhum registro encontrado" items="{VendasDevolucoes>/}">
+<columns>
+<Column width="4em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Número" design="Bold"/>
+</Column>
+<Column width="6em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Tipo doc." design="Bold"/>
+</Column>
+<Column width="14em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Vendedor" design="Bold"/>
+</Column>
+<Column width="14em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Cliente" design="Bold"/>
+</Column>
+<Column width="4em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Status" design="Bold"/>
+</Column>
+<Column width="6em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Tipo de documento" design="Bold"/>
+</Column>
+<Column width="4em" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Data Criação" design="Bold"/>
+</Column>
+<Column width="4em" hAlign="Right" minScreenWidth="Tablet" demandPopin="true">
+<Label text="Valor Total" design="Bold"/>
+</Column>
+</columns>
+<items>
+<ColumnListItem type="Navigation" press="onPressVendasDevolucoesDetalhes">
+<cells>
+<Text text="{VendasDevolucoes>id}"/>
+<Text text="{ path: 'VendasDevolucoes>devolucao', formatter: '.formatterIsDevolucao' }"/>
+<!-- <Text text="{VendasDevolucoes>sVendedores/nome}" /> -->
+<Text text="{VendasDevolucoes>nomeVendedores}"/>
+<!-- <Text text="{VendasDevolucoes>sClientes/nome}" /> -->
+<Text text="{VendasDevolucoes>nomeClientes}"/>
+<!-- <Text text="{VendasDevolucoes>sStatusVenda/descricao}" /> -->
+<Text text="{VendasDevolucoes>descStatus}"/>
+<!-- <Text text="{VendasDevolucoes>sTiposVenda/descricao}" /> -->
+<Text text="{VendasDevolucoes>descTiposVenda}"/>
+<Text text="{VendasDevolucoes>dataCriacao}"/>
+<Text text="{ parts: [{path: 'VendasDevolucoes>valorTotal'}, {path: 'VendasDevolucoes>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</cells>
+</ColumnListItem>
+</items>
+</Table>
+<!-- </ScrollContainer> -->
+</content>
+<footer>
+<Toolbar>
+<core:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<ToolbarSpacer/>
+</Toolbar>
+</footer>
+</Page>
+</mvc:View>
