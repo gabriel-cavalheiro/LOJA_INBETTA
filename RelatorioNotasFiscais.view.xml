@@ -1,0 +1,228 @@
+<mvc:View xmlns:c="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns:t="sap.ui.table" xmlns="sap.ui.comp.variants" xmlns:fb="sap.ui.comp.filterbar" controllerName="controller.RelatorioNotasFiscais" height="100%">
+<m:Page showFooter="true" showSubHeader="true" showHeader="false">
+<!-- <l:VerticalLayout width="100%"> -->
+<fb:FilterBar clear="onClear" search="onSearch" showRestoreButton="true" showClearButton="true" showClearOnFB="true">
+<fb:filterItems>
+<fb:FilterItem name="Empresas" label="Empresa">
+<fb:control>
+<m:Select id="inputHelpEmpresasRelatorioNotasFiscais" forceSelection="true" items="{InputHelpEmpresas>/}">
+<c:Item key="{InputHelpEmpresas>id}" text="{InputHelpEmpresas>id} - {InputHelpEmpresas>descricao}"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Loja" label="Loja">
+<fb:control>
+<m:Select forceSelection="true" id="inputHelpLocaisExpedicaoRelatorioNotasFiscais" items="{InputHelpLocaisExpedicao>/}">
+<c:Item key="{InputHelpLocaisExpedicao>id}" text="{InputHelpLocaisExpedicao>id} - {InputHelpLocaisExpedicao>descricao}"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Clientes" label="Cliente" id="idFiltroCliente">
+<fb:control>
+<m:MultiInput enableMultiLineMode="true" showValueHelp="true" id="multiInputClientes" valueHelpOnly="false" valueHelpRequest="onValueHelpRequestClientes"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Nº Nota" label="Nº Nota">
+<fb:control>
+<m:Input id="inputHelpNumeroNotasFiscais" type="Number"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="Materiais" label="Materiais">
+<fb:control>
+<m:MultiInput enableMultiLineMode="true" id="multiInputMateriais" valueHelpOnly="true" valueHelpRequest="onValueHelpRequestMateriais"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="DataInicialInput" id="DataInicialInput" label="Data Inicial" mandatory="true">
+<fb:control>
+<m:DatePicker id="inputDataInicialRelatorioNotasFiscais" placeholder="Data inicial..." change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="DataFinalInput" id="DataFinalInput" label="Data Final" mandatory="true">
+<fb:control>
+<m:DatePicker id="inputDataFinalRelatorioNotasFiscais" placeholder="Data final..." change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy"/>
+</fb:control>
+</fb:FilterItem>
+</fb:filterItems>
+</fb:FilterBar>
+<!-- </l:VerticalLayout> -->
+<l:VerticalLayout width="100%">
+<t:Table visibleRowCount="Auto" rows="{RetornoRelatorio>/tVendasRelnfval}" selectionMode="None">
+<t:columns>
+<t:Column width="6em">
+<m:Text wrapping="true" text="Tipo doc. Vendas"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>tipodocvendas}"/>
+</t:template>
+</t:Column>
+<t:Column width="7em">
+<m:Text wrapping="true" text="Data do Documento"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>datadocumento}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em" hAlign="Right">
+<m:Label design="Bold" text="Valor Total c/ Impostos"/>
+<t:template>
+<m:Text text="{ parts: [{path: 'RetornoRelatorio>valortotalcomimpostos'}, {path: 'RetornoRelatorio>moeda'}] , type:'sap.ui.model.type.Currency' }"/>
+</t:template>
+<t:menu>
+<u:Menu>
+<u:items>
+<u:MenuItem text="Agrupador: Região" select="onValorTotalGroupingRegiao"/>
+</u:items>
+<u:items>
+<u:MenuItem text="Agrupador: Cidade" select="onValorTotalGroupingCidade"/>
+</u:items>
+<u:items>
+<u:MenuItem text="Agrupador: Cliente" select="onValorTotalGroupingCliente"/>
+</u:items>
+<u:items>
+<u:MenuItem text="Agrupador: Empresa" select="onValorTotalGroupingEmpresa"/>
+</u:items>
+<u:items>
+<u:MenuItem text="Agrupador: Material" select="onValorTotalGroupingMateriais"/>
+</u:items>
+<u:items>
+<u:MenuItem text="Agrupador: Tipos Documento" select="onValorTotalGroupingTipoDocumento"/>
+</u:items>
+</u:Menu>
+</t:menu>
+</t:Column>
+<t:Column width="6em">
+<m:Text wrapping="true" text="Cód. Empresa"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>empresa}"/>
+</t:template>
+</t:Column>
+<t:Column width="10em">
+<m:Text wrapping="true" text="Nome Empresa"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>nomeempresa}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<m:Text wrapping="true" text="Número Pedido"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>numeropedido}"/>
+</t:template>
+</t:Column>
+<t:Column width="7em">
+<m:Text wrapping="true" text="Documento Vendas"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>documentovendas}"/>
+</t:template>
+</t:Column>
+<t:Column width="7em">
+<m:Text wrapping="true" text="Número Documento"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>numerodocumento}"/>
+</t:template>
+</t:Column>
+<t:Column width="7em">
+<m:Text wrapping="true" text="Número NF-e"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>numeronfe}"/>
+</t:template>
+</t:Column>
+<t:Column width="14em">
+<m:Text wrapping="true" text="Chave NF-e"/>
+<t:template>
+<!-- <m:Text text="{RetornoRelatorio>chavenfe}" /> -->
+<m:Link text="{RetornoRelatorio>chavenfe}" press="onLinkChavePress"/>
+</t:template>
+</t:Column>
+<t:Column width="7em">
+<m:Text wrapping="true" text="Cód. Cliente"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>codigocliente}"/>
+</t:template>
+</t:Column>
+<t:Column width="16em">
+<m:Text wrapping="true" text="Nome Cliente"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>nomecliente}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<m:Text wrapping="true" text="Cód. Material"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>material}"/>
+</t:template>
+</t:Column>
+<t:Column width="14em">
+<m:Text wrapping="true" text="Nome Material"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>descricaomaterial}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em" hAlign="Right">
+<m:Text text="Qtde."/>
+<t:template>
+<m:Text text="{RetornoRelatorio>quantidade}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<m:Text text="UM"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>unidademedida}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<m:Text text="Incoterms 1"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>incoterms1}"/>
+</t:template>
+</t:Column>
+<t:Column width="6em">
+<m:Text text="Incoterms 2"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>incoterms2}"/>
+</t:template>
+</t:Column>
+<!-- <t:Column width="6em">
+							<m:Text text="Grupo Clientes" />
+							<t:template>
+								<m:Text text="{RetornoRelatorio>grupoclientes}" />
+							</t:template>
+						</t:Column>
+						<t:Column width="16em">
+							<m:Text wrapping="true" text="Desc. Grupo Clientes" />
+							<t:template>
+								<m:Text text="{RetornoRelatorio>descricaogrupoclientes}" />
+							</t:template>
+						</t:Column> -->
+<t:Column width="6em">
+<m:Text text="Hierarquia"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>hierarquia}"/>
+</t:template>
+</t:Column>
+<t:Column width="8em">
+<m:Text text="Nome Hierarquia"/>
+<t:template>
+<m:Text text="{RetornoRelatorio>nomehierarquia}"/>
+</t:template>
+</t:Column>
+<!-- <t:Column width="6em">
+							<m:Text text="Fim Organização" />
+							<t:template>
+								<m:Text text="{RetornoRelatorio>fimorganizacao}" />
+							</t:template>
+						</t:Column> -->
+<t:Column width="3em">
+<m:Text text="Obs."/>
+<t:template>
+<m:Button visible="{ path: 'RetornoRelatorio>observacoes', formatter: '.formatterCheckObservacoes' }" icon="sap-icon://commission-check" press="onObservacoesView"/>
+</t:template>
+</t:Column>
+</t:columns>
+</t:Table>
+</l:VerticalLayout>
+<m:footer>
+<m:Toolbar>
+<c:Fragment fragmentName="view.FooterStatus" type="XML"/>
+<m:ToolbarSpacer/>
+</m:Toolbar>
+</m:footer>
+</m:Page>
+</mvc:View>
