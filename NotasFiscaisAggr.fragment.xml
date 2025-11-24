@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:viz="sap.viz.ui5.controls">
+<Dialog contentWidth="840px" contentHeight="760px" title="Relatório Sintético - Agregado" type="Standard">
+<content>
+<viz:VizFrame xmlns="sap.viz" id="idpiechart" vizType="pie"/>
+</content>
+<endButton>
+<Button text="Voltar" type="Transparent" press="closeRelatorioAgregado"/>
+</endButton>
+<buttons>
+<Button text="Voltar" type="Transparent" press="closeRelatorioAgregado"/>
+</buttons>
+</Dialog>
+</core:FragmentDefinition>
