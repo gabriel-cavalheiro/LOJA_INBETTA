@@ -1,0 +1,3 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="controller.NotFound">
+<MessagePage title="Página não encontrada" text="A página solicitada não está disponível." description="Por favor verifique a URL e tente novamente." showNavButton="true" navButtonPress="onNavBack"/>
+</mvc:View>
