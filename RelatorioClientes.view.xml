@@ -1,0 +1,152 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:semantic="sap.m.semantic" xmlns:core="sap.ui.core" controllerName="controller.RelatorioClientes">
+<SplitApp id="idSplitApp" initialDetail="detail" initialMaster="master" orientationChange="onOrientationChange">
+<detailPages>
+<Page id="detail" showHeader="true" title="Consulta de Clientes" class="sapUiStdPage">
+<content>
+<VBox class="sapUiSmallMargin">
+<f:Form id="formDadosPrincipais" editable="false" title="Dados Cliente ({detailView>/id})">
+<f:layout>
+<f:ResponsiveGridLayout labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+</f:layout>
+<f:formContainers>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Código">
+<f:fields>
+<Text text="{detailView>/id}" id="txtCodigo"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="CNPJ" visible="{detailView>/pessoaJuridica}">
+<f:fields>
+<Text text="{ path: 'detailView>/cnpj', formatter: '.formatCnpj' }" id="txtcnpj"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="CPF" visible="{detailView>/pessoaFisica}">
+<f:fields>
+<Text text="{ path: 'detailView>/cpf', formatter: '.formatCpf' }" id="txtcpf"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Nome">
+<f:fields>
+<Text text="{detailView>/nome}" id="txtNome"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="I.E.">
+<f:fields>
+<Text text="{detailView>/inscricaoEstadual}"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+</f:formContainers>
+</f:Form>
+</VBox>
+<VBox class="sapUiSmallMargin">
+<f:Form id="formDadosAdicionais" editable="false" title="Dados Adicionais">
+<f:layout>
+<f:ResponsiveGridLayout labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+</f:layout>
+<f:formContainers>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Limite de Crédito">
+<f:fields>
+<Text text="{detailView>/limiteCredito}" id="txtLimiteCredito"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+</f:formContainers>
+</f:Form>
+</VBox>
+<VBox class="sapUiSmallMargin">
+<f:Form id="formEndereco" editable="false">
+<f:title>
+<core:Title text="Endereço"/>
+</f:title>
+<f:layout>
+<f:ResponsiveGridLayout labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+</f:layout>
+<f:formContainers>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Logradouro">
+<f:fields>
+<Text text="{detailView>/logradouro}" id="txtLogradouro"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Bairro">
+<f:fields>
+<Text text="{detailView>/bairro}" id="txtBairro"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="CEP">
+<f:fields>
+<Text text="{detailView>/codigoPostal}" id="txtCep"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Email Principal">
+<f:fields>
+<Text text="{detailView>/email}" id="txtEmailPrincipal"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+<f:FormContainer>
+<f:formElements>
+<f:FormElement label="Número/Complemento">
+<f:fields>
+<Text text="{detailView>/numero}" id="txtNumero"/>
+<Text text="{detailView>/complemento}" id="txtComplemento"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Cidade/UF">
+<f:fields>
+<Text text="{detailView>/cidade}/{detailView>/uf}" id="txtCidade"/>
+</f:fields>
+</f:FormElement>
+<f:FormElement label="Fone">
+<f:fields>
+<Text text="{detailView>/telefone}" id="txtFone"/>
+</f:fields>
+</f:FormElement>
+</f:formElements>
+</f:FormContainer>
+</f:formContainers>
+</f:Form>
+</VBox>
+</content>
+</Page>
+</detailPages>
+<masterPages>
+<Page id="master" title="Clientes" class="sapUiStdPage">
+<subHeader>
+<Toolbar>
+<SearchField id="searchField" showRefreshButton="{= !${device>/support/touch} }" tooltip="Entrar um cliente" width="200%" search="onSearch"/>
+</Toolbar>
+</subHeader>
+<content>
+<List id="list" items="{masterView>/}" busyIndicatorDelay="{masterView>/delay}" noDataText="{masterView>/noDataText}" mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished" selectionChange="onSelectionChange">
+<items>
+<ObjectListItem type="Active" press="onListItemPress" title="{masterView>nome}" number="{ path: 'masterView>id' }">
+<attributes>
+<ObjectAttribute text="{masterView>bairro} - {masterView>cidade}/{masterView>uf}"/>
+<ObjectAttribute text="{ path: 'masterView>/cnpj', formatter: '.formatCnpj' }" visible="true"/>
+<ObjectAttribute text="{ path: 'masterView>/cpf', formatter: '.formatCpf' }" visible="true"/>
+<ObjectAttribute text="{masterView>IdEmpresa}" visible="false"/>
+<ObjectAttribute text="{masterView>CanalDistribuicao}" visible="false"/>
+<ObjectAttribute text="{masterView>SetorAtividade}" visible="false"/>
+<ObjectAttribute text="{masterView>cnpj}" visible="false"/>
+</attributes>
+</ObjectListItem>
+</items>
+</List>
+</content>
+</Page>
+</masterPages>
+</SplitApp>
+</mvc:View>
