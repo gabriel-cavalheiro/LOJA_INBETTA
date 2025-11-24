@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+<ResponsivePopover title="Enviar por e-mail" placement="Top" class="sapUiPopupWithPadding" contentWidth="420px">
+<endButton>
+<Button text="Enviar" press="handleEnviarEmail"/>
+</endButton>
+<content>
+<Text text="Separe múltiplos e-mails com ';'"/>
+<TextArea id="inputEnvioEmailsPareto" width="100%" value="{ConfigRelatorio>/emailsenvio}" rows="4"/>
+</content>
+</ResponsivePopover>
+</core:FragmentDefinition>
