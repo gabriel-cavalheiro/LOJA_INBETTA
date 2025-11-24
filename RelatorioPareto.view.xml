@@ -1,0 +1,198 @@
+<mvc:View xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" controllerName="controller.RelatorioPareto">
+<m:Page showSubHeader="true" titleLevel="auto" showHeader="false" enableScrolling="true">
+<m:content>
+<l:VerticalLayout width="100%">
+<fb:FilterBar clear="onClear" search="onSearch" showRestoreButton="false" showClearButton="true" showClearOnFB="true">
+<fb:filterItems>
+<fb:FilterItem name="inputDataInicialAbc" label="Período de sel. Atual P1">
+<fb:control>
+<m:DatePicker change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" id="inputDataInicialAbc" placeholder="Data inicial P1..."/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="inputDataFinalAbc" label="Período de sel. Atual P1">
+<fb:control>
+<m:DatePicker change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" id="inputDataFinalAbc" placeholder="Data final P1..."/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="inputDataInicialP2Abc" label="Período de sel. Anterior P2">
+<fb:control>
+<m:DatePicker change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" id="inputDataInicialP2Abc" placeholder="Data inicial P2..."/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="inputDataFinalP2Abc" label="Período de sel. Anterior P2">
+<fb:control>
+<m:DatePicker change="valData" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" id="inputDataFinalP2Abc" placeholder="Data final P2..."/>
+</fb:control>
+</fb:FilterItem>
+<!-- <fb:FilterItem name="checkboxCompararPeriodo" label="Comparar período anterior?" >
+                            <fb:control>
+                                <m:Checkbox id="checkboxCompararPeriodo" />
+                            </fb:control>
+                        </fb:FilterItem> -->
+<fb:FilterItem name="selectFormatoValorExibicao" label="Formato valor exibição">
+<fb:control>
+<m:Select id="selectFormatoValorExibicao">
+<!-- <c:Item key="1" text="Líquido" /> -->
+<c:Item key="2" text="Bruto"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="multiInputEmpresaAbc" label="Empresas">
+<fb:control>
+<m:MultiInput enableMultiLineMode="true" id="multiInputEmpresaAbc" valueHelpOnly="true" valueHelpRequest="onValueHelpRequestEmpresa"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="multiInputCustomerAbc" label="Cliente">
+<fb:control>
+<m:MultiInput enableMultiLineMode="true" id="multiInputCustomerAbc" showValueHelp="true" valueHelpOnly="false" valueHelpRequest="onValueHelpRequestCustomer"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="multiInputHierarquiaAbc" label="Cat. Produtos">
+<fb:control>
+<m:MultiInput enableMultiLineMode="true" id="multiInputHierarquiaAbc" valueHelpOnly="true" valueHelpRequest="onValueHelpRequestHierarquia"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="multiInputMaterialAbc" label="Materiais">
+<fb:control>
+<m:MultiInput enableMultiLineMode="true" id="multiInputMaterialAbc" valueHelpOnly="true" valueHelpRequest="onValueHelpRequestMaterial"/>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="selectLocalExpedicao" label="Loja">
+<fb:control>
+<m:Select id="selectLocalExpedicao" items="{LocaisExpedicao>/}">
+<c:Item key="{LocaisExpedicao>id}" text="{LocaisExpedicao>descricao}"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="SelectNivel1" label="Nível 1" mandatory="true">
+<fb:control>
+<m:Select id="SelectNivel1">
+<!-- <c:Item key="1" text="Representante" /> -->
+<c:Item key="2" text="Cliente"/>
+<c:Item key="3" text="Família"/>
+<c:Item key="4" text="Material"/>
+<c:Item key="5" text="Empresa"/>
+<c:Item key="6" text="Região"/>
+<c:Item key="7" text="País"/>
+<c:Item key="8" text="Tipo de Documento"/>
+<c:Item key="9" text="Vendedor"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="SelectNivel2" label="Nível 2">
+<fb:control>
+<m:Select id="SelectNivel2">
+<c:Item key="0" text=""/>
+<!-- <c:Item key="1" text="Representante" /> -->
+<c:Item key="2" text="Cliente"/>
+<c:Item key="3" text="Família"/>
+<c:Item key="4" text="Material"/>
+<c:Item key="5" text="Empresa"/>
+<c:Item key="6" text="Região"/>
+<c:Item key="7" text="País"/>
+<c:Item key="8" text="Tipo de Documento"/>
+<c:Item key="9" text="Vendedor"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="SelectNivel3" label="Nível 3">
+<fb:control>
+<m:Select id="SelectNivel3">
+<c:Item key="0" text=""/>
+<!-- <c:Item key="1" text="Representante" /> -->
+<c:Item key="2" text="Cliente"/>
+<c:Item key="3" text="Família"/>
+<c:Item key="4" text="Material"/>
+<c:Item key="5" text="Empresa"/>
+<c:Item key="6" text="Região"/>
+<c:Item key="7" text="País"/>
+<c:Item key="8" text="Tipo de Documento"/>
+<c:Item key="9" text="Vendedor"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+<fb:FilterItem name="fonteDadosConsulta" label="Fonte">
+<fb:control>
+<m:Select id="fonteDadosConsulta">
+<c:Item key="1" text="Pedido"/>
+<c:Item key="2" text="Fatura"/>
+</m:Select>
+</fb:control>
+</fb:FilterItem>
+</fb:filterItems>
+</fb:FilterBar>
+</l:VerticalLayout>
+<!-- <m:ScrollContainer focusable="true" horizontal="true" class="sapUiContentPadding"> -->
+<TreeTable id="TreeTableBasic" rows="{path:'RetornoRelatorio>/', parameters: {arrayNames:['categorias']}}" m:SelectionMode="None">
+<toolbar>
+<m:Toolbar>
+<m:Title text="Resultado"/>
+<m:ToolbarSpacer/>
+<m:Button text="Fechar árvore" press="onCollapseAll"/>
+<m:Button text="Expandir primeiro nível" press="onExpandFirstLevel"/>
+<m:Button icon="sap-icon://email" press="onEnviarRelatorioEmail" tooltip="Enviar resultado por e-mail"/>
+</m:Toolbar>
+</toolbar>
+<columns>
+<Column width="13rem" sortProperty="nome">
+<m:Label text="Nome"/>
+<template>
+<m:Text text="{RetornoRelatorio>nome}"/>
+</template>
+</Column>
+<Column autoResizable="true">
+<m:Label text="Cód."/>
+<template>
+<m:Text text="{RetornoRelatorio>codigo}"/>
+</template>
+</Column>
+<Column hAlign="Right" sortProperty="montanteP1">
+<m:Label text="Montante P1 - R$"/>
+<template>
+<!-- <u:Currency value="{RetornoRelatorio>montanteP1}"/> -->
+<m:Text text="{ path: 'RetornoRelatorio>montanteP1', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2 } }"/>
+</template>
+</Column>
+<Column hAlign="Right" sortProperty="montanteP2">
+<m:Label text="Montante P2 - R$"/>
+<template>
+<!-- <u:Currency value="{RetornoRelatorio>montanteP2}"/> -->
+<m:Text text="{ path: 'RetornoRelatorio>montanteP2', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2 } }"/>
+</template>
+</Column>
+<Column hAlign="Right" sortProperty="montanteDiferencial">
+<m:Label text="Montante Diff."/>
+<template>
+<m:Text text="{ path: 'RetornoRelatorio>montanteDiferencial', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 3 } }"/>
+</template>
+</Column>
+<Column hAlign="Right" sortProperty="quantidadeP1" autoResizable="true">
+<m:Label text="Qtde. P1"/>
+<template>
+<m:Text text="{ path: 'RetornoRelatorio>quantidadeP1', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 3 } }"/>
+</template>
+</Column>
+<Column hAlign="Right" sortProperty="quantidadeP2" autoResizable="true">
+<m:Label text="Qtde. P2"/>
+<template>
+<m:Text text="{ path: 'RetornoRelatorio>quantidadeP2', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 3 } }"/>
+</template>
+</Column>
+<Column hAlign="Right" sortProperty="quantidadeDiferencial" autoResizable="true">
+<m:Label text="Qtde. Diff."/>
+<template>
+<m:Text text="{ path: 'RetornoRelatorio>quantidadeDiferencial', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 3 } }"/>
+</template>
+</Column>
+</columns>
+</TreeTable>
+<!-- </m:ScrollContainer> -->
+</m:content>
+<!-- <m:footer>
+            <m:Toolbar>
+                <c:Fragment fragmentName="view.FooterStatus" type="XML" />
+                <m:ToolbarSpacer />
+            </m:Toolbar>
+        </m:footer> -->
+</m:Page>
+</mvc:View>
